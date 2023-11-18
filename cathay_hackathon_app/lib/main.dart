@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   final String _pid = "510812B00000C8DD";
   Future<Passenger>? _passenger;
-  String _screen = 'flight';
+  List<String> _screenHistory = ['home'];
 
   @override
   void initState() {
@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   shape: const Border(bottom: BorderSide(color: iconColor)),
                   onTap: () {
                     setState(() {
-                      _screen = 'home';
+                      _screenHistory = ['home'];
                     });
                     _key.currentState!.closeEndDrawer();
                   }
@@ -163,62 +163,76 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
-           SafeArea(
-             child: Stack(
-               children: [
-                 Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
-                   crossAxisAlignment: CrossAxisAlignment.center,
-                   children: [
+          SafeArea(
+            bottom: false,
+            child: Stack(
+              children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
                       IconButton(
-                        icon: const Icon(Icons.notifications),
-                        onPressed: () {
-                          // TODO notif menu
-                        }
+                          icon: const Icon(Icons.notifications),
+                          onPressed: () {}
                       ),
                       IconButton(
                         icon: const Icon(Icons.menu),
                         onPressed: () {
-                          // TODO open menu
                           _key.currentState!.openEndDrawer();
                         },
                       )
-                  ]
-                 ),
-                 const Center(
-                   child: Image(
-                     image: AssetImage('assets/cathay_logo.png'),
-                     width: 42,
-                     height: 42,
-                     color: null,
-                   ),
-                 ),
-               ],
-             ),
-           ),
-          Center(
-            child: FutureBuilder<Passenger>(
-              future: _passenger,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  switch(_screen) {
-                    case 'home':
-                      return CreditHomePage(passenger: snapshot.data!, callback: changeScreen);
-                    case 'insurance':
-                      return InsuranceSearchPage(passenger: snapshot.data!);
-                    case 'flight':
-                      return FlightInfoPage(passenger: snapshot.data!, callback: changeScreen);
-                    case 'insurance-claim':
-                      return InsuranceClaimPage(passenger: snapshot.data!);
-                    case 'code-scan':
-                      return CodeScanPage(passenger: snapshot.data!, callback: changeScreen);
-                    default:
-                      return const Column();
-                  }
-                }
-                return const Text("Not Logged In");
-              }
-            )
+                    ]
+                ),
+                const Center(
+                  child: Image(
+                    image: AssetImage('assets/cathay_logo.png'),
+                    width: 42,
+                    height: 42,
+                    color: null,
+                  ),
+                ),
+                if (_screenHistory.length > 1)
+                  Positioned(
+                      child:
+                      IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: backScreen
+                      )
+                  ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Center(
+                    child: FutureBuilder<Passenger>(
+                      future: _passenger,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          switch(_screenHistory.last) {
+                            case 'home':
+                              return CreditHomePage(passenger: snapshot.data!, callback: changeScreen);
+                            case 'insurance':
+                              return InsuranceSearchPage(passenger: snapshot.data!);
+                            case 'flight':
+                              return FlightInfoPage(passenger: snapshot.data!, callback: changeScreen);
+                            case 'insurance-claim':
+                              return InsuranceClaimPage(passenger: snapshot.data!);
+                            case 'code-scan':
+                              return CodeScanPage(passenger: snapshot.data!, callback: changeScreen);
+                            default:
+                              return const Column();
+                          }
+                        }
+                        return const CircularProgressIndicator();
+                      }
+                    )
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
@@ -250,7 +264,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void changeScreen(String screen) {
     setState(() {
-      _screen = screen;
+      _screenHistory.add(screen);
+    });
+  }
+
+  void backScreen() {
+    setState(() {
+      _screenHistory.removeLast();
     });
   }
 }

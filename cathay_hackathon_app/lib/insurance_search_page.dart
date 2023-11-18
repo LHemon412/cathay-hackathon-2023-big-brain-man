@@ -170,7 +170,7 @@ class _InsuranceSearchPageState extends State<InsuranceSearchPage> {
                                                 selAirportLoc = value;
                                               });
                                               if (value != null) {
-                                                mapController.move(value, 9.2);
+                                                mapController.move(value, 11);
                                               }
                                             },
                                             buttonStyleData: const ButtonStyleData(
@@ -187,12 +187,12 @@ class _InsuranceSearchPageState extends State<InsuranceSearchPage> {
                                         children: [
                                           Container(
                                             height: 150,
-                                            width: 200,
+                                            width: 250,
                                             child: FlutterMap(
                                               mapController: mapController,
                                               options: const MapOptions(
                                                 initialCenter: LatLng(0,0),
-                                                initialZoom: 9.2,
+                                                initialZoom: 11,
                                               ),
                                               children: [
                                                 TileLayer(

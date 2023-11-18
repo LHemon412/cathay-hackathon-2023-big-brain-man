@@ -41,6 +41,7 @@ dependencies:
   intl: ^0.18.1
   url_launcher: ^6.2.1
   qr_code_scanner: ^1.0.1
+  share_plus: ^7.2.1
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,9 @@ flutter:
     - assets/airports.json
     - assets/insurance1.jpg
     - assets/insurance2.jpg
+    - assets/airportDesc1.png
+    - assets/airportDesc2.png
+    - assets/insurance.pdf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
