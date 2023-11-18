@@ -1,6 +1,9 @@
+import 'package:cathay_hackathon_app/code_scan_page.dart';
+import 'package:cathay_hackathon_app/flight_info_page.dart';
 import 'package:cathay_hackathon_app/insurance_search_page.dart';
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import 'insurance_claim_page.dart';
 import 'member.dart';
 
 void main() {
@@ -38,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   final String _pid = "510812B00000C8DD";
   Future<Passenger>? _passenger;
-  String _screen = 'home';
+  String _screen = 'flight';
 
   @override
   void initState() {
@@ -52,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
     const Color bgColor = Color.fromRGBO(238, 240, 240, 1);
     return Scaffold(
       key: _key,
+      resizeToAvoidBottomInset: false,
       endDrawer: Drawer(
         shape: const ContinuousRectangleBorder(),
         child: Container(
@@ -67,20 +71,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   title: Text("View Profile"),
                   shape: Border(bottom: BorderSide(color: iconColor)),
                 ),
-              ),
-              Material(
-                child: ListTile(
-                  leading: const Icon(Icons.token, color: iconColor),
-                  tileColor: Colors.white,
-                  title: const Text("My Credits"),
-                  shape: const Border(bottom: BorderSide(color: iconColor)),
-                  onTap: () {
-                    setState(() {
-                      _screen = 'home';
-                    });
-                    _key.currentState!.closeEndDrawer();
-                  }
-                )
               ),
               Material(
                 child: ListTile(
@@ -173,36 +163,38 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
-           Stack(
-             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.end,
-                 crossAxisAlignment: CrossAxisAlignment.center,
-                 children: [
-                    IconButton(
-                      icon: const Icon(Icons.notifications),
-                      onPressed: () {
-                        // TODO notif menu
-                      }
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.menu),
-                      onPressed: () {
-                        // TODO open menu
-                        _key.currentState!.openEndDrawer();
-                      },
-                    )
-                ]
-               ),
-               const Center(
-                 child: Image(
-                   image: AssetImage('assets/cathay_logo.png'),
-                   width: 42,
-                   height: 42,
-                   color: null,
+           SafeArea(
+             child: Stack(
+               children: [
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                   crossAxisAlignment: CrossAxisAlignment.center,
+                   children: [
+                      IconButton(
+                        icon: const Icon(Icons.notifications),
+                        onPressed: () {
+                          // TODO notif menu
+                        }
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.menu),
+                        onPressed: () {
+                          // TODO open menu
+                          _key.currentState!.openEndDrawer();
+                        },
+                      )
+                  ]
                  ),
-               ),
-             ],
+                 const Center(
+                   child: Image(
+                     image: AssetImage('assets/cathay_logo.png'),
+                     width: 42,
+                     height: 42,
+                     color: null,
+                   ),
+                 ),
+               ],
+             ),
            ),
           Center(
             child: FutureBuilder<Passenger>(
@@ -214,6 +206,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       return CreditHomePage(passenger: snapshot.data!, callback: changeScreen);
                     case 'insurance':
                       return InsuranceSearchPage(passenger: snapshot.data!);
+                    case 'flight':
+                      return FlightInfoPage(passenger: snapshot.data!, callback: changeScreen);
+                    case 'insurance-claim':
+                      return InsuranceClaimPage(passenger: snapshot.data!);
+                    case 'code-scan':
+                      return CodeScanPage(passenger: snapshot.data!, callback: changeScreen);
                     default:
                       return const Column();
                   }

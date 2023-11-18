@@ -11,17 +11,12 @@ class CreditHomePage extends StatefulWidget {
 }
 
 class _CreditHomePageState extends State<CreditHomePage> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     const Color iconColor = Color.fromRGBO(191, 179, 157, 1);
     Passenger psg = widget.passenger;
     return Padding(
-      padding: const EdgeInsets.all(32.0),
+      padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
       child: Column (
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -39,7 +34,7 @@ class _CreditHomePageState extends State<CreditHomePage> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 12.0, right: 12.0),
                         child: SizedBox(
-                          width: 300,
+                          width: 200,
                           child: LinearProgressIndicator(
                               value: 0.7
                           ),
@@ -54,13 +49,13 @@ class _CreditHomePageState extends State<CreditHomePage> {
               ),
             ),
             const SizedBox(height: 16),
-            Container(
+            SizedBox(
               height: 100,
               width: double.infinity,
               child: GestureDetector(
-                  child: Card(
+                  child: const Card(
                       child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: EdgeInsets.all(16.0),
                           child: Row(
                               children: [
                                 Icon(Icons.flight, color: iconColor),
@@ -80,13 +75,13 @@ class _CreditHomePageState extends State<CreditHomePage> {
                   }
               ),
             ),
-            Container(
+            SizedBox(
               height: 100,
               width: double.infinity,
               child: GestureDetector(
-                  child: Card(
+                  child: const Card(
                       child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: EdgeInsets.all(16.0),
                           child: Row(
                               children: [
                                 Icon(Icons.health_and_safety, color: iconColor),
