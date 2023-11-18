@@ -101,6 +101,24 @@ class _CreditHomePageState extends State<CreditHomePage> {
                     widget.callback('insurance');
                   }
               ),
+            ),
+            const SizedBox(
+              height: 100,
+              width: double.infinity,
+              child: Card(
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      Icon(Icons.sports_esports, color: iconColor),
+                      SizedBox(width: 32),
+                      Text(
+                          "Safety Game",
+                          style: TextStyle(fontSize: 28)
+                      )
+                    ])
+                  ),
+              ),
             )
           ]
       ),
