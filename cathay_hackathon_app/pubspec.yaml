@@ -68,6 +68,7 @@ flutter:
     - assets/cathay_logo.png
     - assets/airports.json
     - assets/insurance1.jpg
+    - assets/insurance2.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

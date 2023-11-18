@@ -29,23 +29,65 @@ class _InsuranceSearchPageState extends State<InsuranceSearchPage> {
     const Color iconColor = Color.fromRGBO(191, 179, 157, 1);
     Passenger psg = widget.passenger;
     if (showResult) {
-      return const Column(
-        children: [
-          Text(
-            "Suggested Insurance Plans",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
-          ),
-          Card(
-            child: Column(
-              children: [
-                Image(
-                    height: 200,
-                    image: AssetImage('assets/insurance1.jpg')
+      return Padding(
+        padding: EdgeInsets.all(32.0),
+        child: Column(
+          children: [
+            const Text(
+              "Suggested Insurance Plans",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+            ),
+            SizedBox(
+              width: 400,
+              child: Card(
+                child: Container(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16.0),
+                        child: Image(
+                            height: 200,
+                            image: AssetImage('assets/insurance1.jpg'),
+                            fit: BoxFit.cover,
+                        ),
+                      ),
+                      Text("Flying Bird Company", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                      Text("Health, luggage and robbery insurance claim included."),
+                      Text("Package: 1280 HKD"),
+                    ]
+                  ),
                 )
-              ]
+              ),
+            ),
+            SizedBox(
+              width: 400,
+              child: Card(
+                  child: Container(
+                    padding: EdgeInsets.all(8.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(16.0),
+                            child: Image(
+                              height: 200,
+                              width: double.infinity,
+                              image: AssetImage('assets/insurance2.jpg'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text("Staysafe Company", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                          Text("An all-rounded package."),
+                          Text("Package: 1780 HKD"),
+                        ]
+                    ),
+                  )
+              ),
             )
-          )
-        ]
+          ]
+        ),
       );
     } else {
       return FutureBuilder(
