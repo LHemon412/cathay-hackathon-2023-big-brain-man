@@ -18,6 +18,7 @@ class FlightInfoPage extends StatefulWidget {
 
 class _FlightInfoPageState extends State<FlightInfoPage> {
   DateTime lastUpdated = DateTime.now();
+  List<bool> lockedPos = [true, true, true];
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +52,13 @@ class _FlightInfoPageState extends State<FlightInfoPage> {
                         Column(
                           children: [
                             IconButton(
-                              icon: const Icon(Icons.lock),
+                              icon: lockedPos[0] ? const Icon(Icons.lock) : const Icon(Icons.lock_open),
                               iconSize: 16,
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  lockedPos[0] = !lockedPos[0];
+                                });
+                              },
                             ),
                             const Icon(Icons.reorder, size: 16),
                           ]
@@ -90,9 +95,13 @@ class _FlightInfoPageState extends State<FlightInfoPage> {
                         Column(
                             children: [
                               IconButton(
-                                icon: const Icon(Icons.lock),
+                                icon: lockedPos[1] ? const Icon(Icons.lock) : const Icon(Icons.lock_open),
                                 iconSize: 16,
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() {
+                                    lockedPos[1] = !lockedPos[1];
+                                  });
+                                },
                               ),
                               const Icon(Icons.reorder, size: 16),
                             ]
@@ -168,9 +177,13 @@ class _FlightInfoPageState extends State<FlightInfoPage> {
                         Column(
                             children: [
                               IconButton(
-                                icon: const Icon(Icons.lock),
+                                icon: lockedPos[2] ? const Icon(Icons.lock) : const Icon(Icons.lock_open),
                                 iconSize: 16,
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() {
+                                    lockedPos[2] = !lockedPos[2];
+                                  });
+                                },
                               ),
                               const Icon(Icons.reorder, size: 16),
                             ]
