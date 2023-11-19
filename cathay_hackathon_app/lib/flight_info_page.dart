@@ -8,9 +8,9 @@ import 'member.dart';
 import 'package:path_provider/path_provider.dart';
 
 class FlightInfoPage extends StatefulWidget {
-  FlightInfoPage({super.key, required this.passenger, required this.callback});
-  Passenger passenger;
-  Function(String) callback;
+  const FlightInfoPage({super.key, required this.passenger, required this.callback});
+  final Passenger passenger;
+  final Function(String) callback;
 
   @override
   State<FlightInfoPage> createState() => _FlightInfoPageState();
@@ -21,8 +21,6 @@ class _FlightInfoPageState extends State<FlightInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    const Color iconColor = Color.fromRGBO(191, 179, 157, 1);
-    Passenger psg = widget.passenger;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0),
       child: Column (
@@ -44,7 +42,7 @@ class _FlightInfoPageState extends State<FlightInfoPage> {
                     ),
                   ]
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
@@ -104,7 +102,7 @@ class _FlightInfoPageState extends State<FlightInfoPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text('Luggage Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Table(
                                 border: TableBorder.all(color: Colors.transparent),
                                 defaultColumnWidth: const IntrinsicColumnWidth(),
@@ -181,8 +179,8 @@ class _FlightInfoPageState extends State<FlightInfoPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text('Insurance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                            const Text('Safeguard Company', style: TextStyle(fontSize: 20)),
+                            Text('Insurance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                            Text('Safeguard Company', style: TextStyle(fontSize: 20)),
                           ]
                         ),
                         Column(

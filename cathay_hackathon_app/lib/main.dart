@@ -183,13 +183,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       )
                     ]
                 ),
-                const Center(
-                  child: Image(
-                    image: AssetImage('assets/cathay_logo.png'),
-                    width: 42,
-                    height: 42,
-                    color: null,
+                GestureDetector(
+                  child: const Center(
+                    child: Image(
+                      image: AssetImage('assets/cathay_logo.png'),
+                      width: 42,
+                      height: 42,
+                      color: null,
+                    ),
                   ),
+                  onTap: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  }
                 ),
                 if (_screenHistory.length > 1)
                   Positioned(
@@ -266,11 +271,13 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _screenHistory.add(screen);
     });
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   void backScreen() {
     setState(() {
       _screenHistory.removeLast();
     });
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 }

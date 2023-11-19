@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:tuple/tuple.dart';
 
 
 class InsuranceSearchPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class InsuranceSearchPage extends StatefulWidget {
 }
 
 class _InsuranceSearchPageState extends State<InsuranceSearchPage> {
-  LatLng? selAirportLoc;
+  Tuple2<String,LatLng>? selAirportLoc;
   String? selTripNature;
   double numOfPeople = 1;
   bool showResult = false;
@@ -128,16 +129,19 @@ class _InsuranceSearchPageState extends State<InsuranceSearchPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final json = jsonDecode(snapshot.data!) as List<dynamic>;
-            List<DropdownMenuItem<LatLng>> airportList = [];
+            List<DropdownMenuItem<Tuple2<String,LatLng>>> airportList = [];
             for (int i = 0; i < 25; i++) {
               dynamic obj = json[i];
-              airportList.add(DropdownMenuItem<LatLng>(
-                value: LatLng(obj['_geoloc']['lat'], obj['_geoloc']['lng']),
+              airportList.add(DropdownMenuItem<Tuple2<String,LatLng>>(
+                value: Tuple2("${obj['city']} - ${obj['name']}", LatLng(obj['_geoloc']['lat'], obj['_geoloc']['lng'])),
                 child: Text(
                     "${obj['city']} - ${obj['name']}"
                 ),
               ));
             }
+            airportList.sort((a, b) {
+              return a.value!.item1.compareTo(b.value!.item1);
+            });
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32.0),
               child: SingleChildScrollView(
@@ -160,17 +164,17 @@ class _InsuranceSearchPageState extends State<InsuranceSearchPage> {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          DropdownButton2<LatLng>(
+                                          DropdownButton2<Tuple2<String,LatLng>>(
                                             isExpanded: true,
                                             hint: const Text('Airport'),
                                             items: airportList,
                                             value: selAirportLoc,
-                                            onChanged: (LatLng? value) {
+                                            onChanged: (Tuple2<String,LatLng>? value) {
                                               setState(() {
                                                 selAirportLoc = value;
                                               });
                                               if (value != null) {
-                                                mapController.move(value, 11);
+                                                mapController.move(value.item2, 11);
                                               }
                                             },
                                             buttonStyleData: const ButtonStyleData(
